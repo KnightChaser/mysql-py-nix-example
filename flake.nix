@@ -1,0 +1,28 @@
+# flake.nix
+{
+  description = "Python + MySQL demo (nix + uv)";
+
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+  outputs = { nixpkgs, ... }:
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs { inherit system; };
+  in {
+    devShells.${system}.default = pkgs.mkShell {
+      buildInputs = with pkgs; [
+        pkgs.python312
+        pkgs.uv
+        pkgs.mariadb
+        pkgs.pkg-config
+        pkgs.libmysqlclient
+        pkgs.gcc
+      ];
+
+      shellHook = ''
+        echo "Nix dev shell: python + uv + mariadb"
+        export UV_PROJECT_ENV=.venv
+      '';
+    };
+  };
+}
