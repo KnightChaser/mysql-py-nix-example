@@ -2,6 +2,13 @@
 
 > An example repository demonstrating how to use MySQL with Python in a Nix environment.
 
+## Approach
+
+- Core tool: `pkgs.mkShell`
+- Philosophy: Minimal and reproducible development environment. Nix gathers Python, MySQL client libraries, uv, and other dependencies.
+  Developers will handle the Python libraries using `uv sync`.
+- Python3 libraries come from PyPI, downloaded every time the Python3 virtual environment is created.
+
 ## Setup and usage
 
 1. Start a temporary MySQL database via `podman`
